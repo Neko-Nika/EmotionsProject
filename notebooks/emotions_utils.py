@@ -11,6 +11,18 @@ from torch.utils.data import DataLoader, Dataset
 from torch.utils.data.sampler import WeightedRandomSampler
 
 
+CLASS_TO_IDX = {
+    "anger": 0,
+    "contempt": 1,
+    "disgust": 2,
+    "fear": 3,
+    "joy": 4,
+    "sadness": 5,
+    "wonder": 6,
+}
+IDX_TO_CLASS = {v: k for k, v in CLASS_TO_IDX.items()}
+
+
 class EmotionsDataset(Dataset):
     def __init__(self, data, transforms=None):
         self.data = data
