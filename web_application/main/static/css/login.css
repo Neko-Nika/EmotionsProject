@@ -1,0 +1,32 @@
+.card, #error {
+    width: 45%;
+}
+
+#error {
+    margin-top: 20px;
+}
+
+.card-header, .card-footer, #error {
+    font-style:normal;
+
+    text-align: center;
+}
+
+.card-header {
+    font-size: large;
+}
+
+.card-footer {
+    border-top: none;
+}
+
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.mb-3 {
+    padding-bottom: 10px;
+}

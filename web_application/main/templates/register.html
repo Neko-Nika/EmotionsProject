@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+<script src="{% static 'js/register.js' %}"></script>
+
+<div class="container">
+    <div class="card mx-auto" >
+        <div class="card-header bg-primary text-light">Создайте новый аккаунт</div>
+        <div class="card-body">
+            <form id="register_account" method="post">
+                {% csrf_token %}
+                  <div class="mb-3">
+                    <label for="emailInput" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="emailInput" name="email" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="passwordInput" class="form-label">Пароль</label>
+                    <input type="password" class="form-control" id="passwordInput" name="password" required>
+                    <div id="passHelp" class="form-text">Пароль должен быть не менее 10 символов.</div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="passwordInput2" class="form-label">Повторите пароль</label>
+                    <input type="password" class="form-control" id="passwordInput2" name="password2" required>
+                  </div>
+                  <div class="card-footer">
+                    <button type="button" class="btn btn-primary" form="register_account" id="signUpBtn">Создать аккаунт</button>
+                    <a href="/login" class="btn btn-outline-secondary" id="toLoginBtn">Войти в существующий</a>
+                  </div>
+            </form>
+        </div>
+        </div>
+
+        <div class="alert alert-danger mx-auto" role="alert" id="error" hidden></div>
+</div>
+
+{% endblock content %}
