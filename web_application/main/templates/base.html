@@ -10,7 +10,16 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </head>
   <body>
-    {% block header %} {% endblock header%}
+    {% block header %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <ul class="center">
+        <li><a class="navbar-option" href="/recipes">Инструкция</a></li>
+        <li><a class="navbar-option" href="/recipes">Обработка видео</a></li>
+        <li><a class="navbar-option" href="/diary">Камеры</a></li>
+        <li><a class="navbar-option" href="/signout">Выйти из аккаунта</a></li>
+      </ul>
+    </nav>
+    {% endblock header %}
     {% block content %} {% endblock content %}
   </body> 
 </html>
