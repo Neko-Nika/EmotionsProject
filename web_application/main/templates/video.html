@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<script src="{% static 'js/video.js' %}"></script>
+
+<div class="container">
+    <div class="card mx-auto" >
+        <div class="card-header bg-primary text-light text-center">Загрузите видео для обработки</div>
+        <div class="card-body">
+            <p>Видео будет обработано моделью DDAMFN.</p> 
+            <p>Поддерживаются форматы avi и mp4.</p> 
+        </div>
+        <div class="input-group mb-3">
+            <input type="file" class="form-control" accept="video/mp4,video/avi,video/x-m4v,video/*" id="inputVideo">
+        </div>
+        <button type="button" class="btn btn-primary" id="processBtn">Обработать</button>
+    </div>
+        <div class="alert alert-danger mx-auto" role="alert" id="error" hidden></div>
+</div>
+
+{% endblock content %}

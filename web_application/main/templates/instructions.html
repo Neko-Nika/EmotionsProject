@@ -6,7 +6,21 @@
 <script src="{% static 'js/instructions.js' %}"></script>
 
 <div class="container">
-    
+    <div class="card">
+        <h5 class="card-header">Инструкция и возможности</h5>
+        <div class="card-body">
+          <h5 class="card-title">Загружайте свои видео на обработку</h5>
+          <p class="card-text">Загрузите с компьютера любое видео в формате (.avi, mp4 и т.п.) и получите на выходе обработку эмоций</p>
+          <a href="video/" class="btn btn-primary">Опробовать</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Подключайтесь к видеопотоку</h5>
+          <p class="card-text">Укажите ссылку на видеопоток (например в протоколе rtsp) и следите в прямом эфире за детекцией эмоций.</p>
+          <a href="cameras/" class="btn btn-primary">Опробовать</a>
+        </div>
+      </div>
 </div>
 
 {% endblock content %}

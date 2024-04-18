@@ -88,3 +88,35 @@ def create_account(request):
         }
         
         return JsonResponse(response_data, status=405)
+
+
+@csrf_exempt
+def upload_video(request):
+    if request.method == "POST":
+        try:
+            video_file = request.FILES["video"]
+            uploaded = UploadedVideo.objects.create(video=video_file)
+            uploaded.save()
+
+            response_data = {
+                'success': True,
+                'message': 'Обработка успешно завершена'
+            }
+
+            return JsonResponse(response_data)
+        
+        except Exception as exc:
+            response_data = {
+                'success': False,
+                'message': exc
+            }
+
+            return JsonResponse(response_data)
+    else:
+
+        response_data = {
+            'success': False,
+            'message': 'Only POST requests are allowed'
+        }
+        
+        return JsonResponse(response_data, status=405)

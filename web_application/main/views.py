@@ -20,3 +20,13 @@ def register(request):
 def signout(request):
     logout(request)
     return redirect("login")
+
+
+@login_required(login_url="/login")
+def video(request):
+    return render(request, "video.html")
+
+
+@login_required(login_url="/login")
+def cameras(request):
+    pass
