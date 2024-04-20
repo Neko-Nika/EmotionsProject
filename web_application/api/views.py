@@ -1,12 +1,14 @@
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden, JsonResponse
+from django.http import JsonResponse
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 import os
 import json
+from pathlib import Path
 from datetime import datetime
 from main.models import *
+from emotions.creds import PYTHON_PATH
 
 
 @csrf_exempt
@@ -97,12 +99,18 @@ def upload_video(request):
             video_file = request.FILES["video"]
             uploaded = UploadedVideo.objects.create(video=video_file)
             uploaded.save()
+            
+            path = uploaded.video.path
+            os.system(f"{PYTHON_PATH} api/detection.py {path}")
+            uploaded.delete()
+
+            core_path = core_path = Path(path)
 
             response_data = {
                 'success': True,
+                'output_filename': f"{core_path.stem}_output{core_path.suffix}",
                 'message': 'Обработка успешно завершена'
             }
-
             return JsonResponse(response_data)
         
         except Exception as exc:

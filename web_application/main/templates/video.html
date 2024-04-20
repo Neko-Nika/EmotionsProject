@@ -16,6 +16,10 @@
             <input type="file" class="form-control" accept="video/mp4,video/avi,video/x-m4v,video/*" id="inputVideo">
         </div>
         <button type="button" class="btn btn-primary" id="processBtn">Обработать</button>
+        <a class="btn btn-primary" type="button" id="downloadBtn" disabled hidden="true">
+            <span class="spinner-border spinner-border-sm" id="spinner" role="status" aria-hidden="true"></span>
+            Обработка...
+        </a>
     </div>
         <div class="alert alert-danger mx-auto" role="alert" id="error" hidden></div>
 </div>
