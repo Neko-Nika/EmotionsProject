@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 import os
+import cv2
 import json
 from pathlib import Path
 from datetime import datetime
@@ -110,6 +111,115 @@ def upload_video(request):
                 'success': True,
                 'output_filename': f"{core_path.stem}_output{core_path.suffix}",
                 'message': 'Обработка успешно завершена'
+            }
+            return JsonResponse(response_data)
+        
+        except Exception as exc:
+            response_data = {
+                'success': False,
+                'message': exc
+            }
+
+            return JsonResponse(response_data)
+    else:
+
+        response_data = {
+            'success': False,
+            'message': 'Only POST requests are allowed'
+        }
+        
+        return JsonResponse(response_data, status=405)
+
+
+@csrf_exempt
+def check_connection_available(request):
+    if request.method == "POST":
+        try:
+            link = json.loads(request.body)["link"]
+            if len(link) == 1 and link.isdigit():
+                link = int(link)
+            
+            cam = cv2.VideoCapture(link)
+            if not cam.isOpened():
+                return JsonResponse({
+                    "success": False,
+                    "message": "Проверьте корректность ссылки или номер девайса"
+                })
+            
+            cam.release()
+
+            response_data = {
+                'success': True,
+                "message": "Успешное подключение"
+            }
+            return JsonResponse(response_data)
+        
+        except Exception as exc:
+            response_data = {
+                'success': False,
+                'message': exc
+            }
+
+            return JsonResponse(response_data)
+    else:
+
+        response_data = {
+            'success': False,
+            'message': 'Only POST requests are allowed'
+        }
+        
+        return JsonResponse(response_data, status=405)
+
+
+@csrf_exempt
+def add_camera(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            name = data["name"]
+            link = data["link"]
+
+            obj = Camera.objects.create(
+                author=request.user,
+                name=name,
+                link=link,
+            )
+            obj.save()
+
+            response_data = {
+                'success': True,
+                "message": "Камера создана"
+            }
+            return JsonResponse(response_data)
+        
+        except Exception as exc:
+            response_data = {
+                'success': False,
+                'message': exc
+            }
+
+            return JsonResponse(response_data)
+    else:
+
+        response_data = {
+            'success': False,
+            'message': 'Only POST requests are allowed'
+        }
+        
+        return JsonResponse(response_data, status=405)
+
+
+@csrf_exempt
+def delete_camera(request):
+    if request.method == "POST":
+        try:
+            id = json.loads(request.body)["camera_id"]
+            obj = Camera.objects.get(id=id)
+            obj.delete()
+
+            response_data = {
+                'success': True,
+                "message": "Камера удалена"
             }
             return JsonResponse(response_data)
         

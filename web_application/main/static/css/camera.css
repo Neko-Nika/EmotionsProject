@@ -1,0 +1,15 @@
+.container {
+    margin-top: 50px;
+    background-color: #ffffff;
+
+    width:100%;
+}
+
+.container > img {
+    max-width:640px;
+    height:640px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}

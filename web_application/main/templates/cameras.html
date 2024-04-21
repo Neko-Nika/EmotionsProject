@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/cameras.css' %}">
+<script src="{% static 'js/cameras.js' %}"></script>
+
+<div class="container">
+    <div id="modalBtnContainer">
+        <button type="button" id="modalBtn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            Добавить камеру
+        </button>
+    </div>
+
+    {% if cameras|length > 0 %}
+    <div class="row row-cols-2 gx-3 gy-3">
+    {% for camera in cameras %}
+        {% csrf_token %}
+        <div class="col">
+            <div class="card">
+                <h5 class="card-header">{{camera.name}}</h5>
+                <div class="card-body">
+                    <p class="card-text">Источник: {{camera.link}}</p>
+                    <a href="/camera/{{camera.id}}" class="btn btn-primary">Перейти к трансляции</a>
+                    <a class="btn btn-primary del-camera" onclick="deleteCamera(this)" camera_id="{{camera.id}}">Удалить</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+    {% else %}
+      <h2>Нет добавленных камер</h2>
+    {% endif %}
+
+    <div class="alert alert-danger mx-auto" role="alert" id="error" hidden></div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Задайте параметры подключения online</h5>
+          <button type="button" class="btn-close" id="closeModalBtn" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form id="camera_creation" method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="nameInput" class="form-label">Название</label>
+                    <input type="text" class="form-control" id="nameInput" name="nameInput" required>
+                </div>
+                <div class="mb-3">
+                    <label for="linkInput" class="form-label">Ссылка для подключения или номер девайса</label>
+                    <input type="text" class="form-control" id="linkInput" name="linkInput" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="createBtn" form="camera_creation" class="btn btn-primary">Создать</button>
+                </div>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock content %}

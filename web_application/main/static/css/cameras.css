@@ -1,0 +1,20 @@
+#modalBtnContainer {
+    padding-bottom: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h2 {
+    text-align: center;
+}
+
+.del-camera {
+    background-color: red;
+    border-color: red;
+}
+
+.del-camera:hover {
+    background-color: rgb(142, 2, 2);
+    border-color: rgb(142, 2, 2);
+}
